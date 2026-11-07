@@ -27,10 +27,13 @@ defmodule Reporte do
         bloque_ciudad(ciudad, movimientos_de(ciudad.id, validos))
       end)
 
+    lineas_movimientos_sin_ciudad = Enum.map(sin_ciudad, &linea_movimiento/1)
+    rechazados_movimientos = rechazados_movimientos ++ lineas_movimientos_sin_ciudad
+
     rechazados = [
       "Registros rechazados",
-      "ciudades.txt: #{rechazados_ciudades}",
-      "movimientos.txt: #{rechazados_movimientos + length(sin_ciudad)}"
+      bloque_rechazados("ciudades.txt", rechazados_ciudades),
+      bloque_rechazados("movimientos.txt", rechazados_movimientos)
     ]
 
     (["REPORTE DE SISMOS POR CIUDAD"] ++ bloques ++ [Enum.join(rechazados, "\n")])
@@ -89,5 +92,29 @@ defmodule Reporte do
 
   defp texto_promedio(cantidad, suma) do
     :erlang.float_to_binary(suma / cantidad, decimals: 2) <> " km"
+  end
+
+  defp bloque_rechazados(nombre_archivo, lineas) do
+    detalles =
+      case lineas do
+        [] -> ""
+        _ -> "\n" <> Enum.map_join(lineas, "\n", &"  #{&1}")
+      end
+
+    "#{nombre_archivo}: #{length(lineas)}#{detalles}"
+  end
+
+  defp linea_movimiento(%Movimiento{linea_original: linea}) when is_binary(linea), do: linea
+
+  defp linea_movimiento(movimiento) do
+    [
+      movimiento.codigo,
+      movimiento.id_ciudad,
+      Time.to_string(movimiento.hora_inicio),
+      Time.to_string(movimiento.hora_final),
+      movimiento.magnitud,
+      movimiento.profundidad
+    ]
+    |> Enum.join("@")
   end
 end

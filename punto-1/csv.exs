@@ -8,9 +8,15 @@ defmodule Csv do
   end
 
   def leer_csv(file_path, parser) do
-    File.stream!(file_path)
-    |> Enum.drop(1)
-    |> Enum.map(parser)
+    {validos, invalidos} =
+      file_path
+      |> File.stream!()
+      |> Enum.drop(1)
+      |> Enum.map(parser)
+      |> Enum.split_with(fn resultado ->
+        match?({:ok, _}, resultado)
+      end)
+    {{:ok, validos},{:error_parser, invalidos}}
   end
 
   def generar_mensaje_csv(data, parser) do
