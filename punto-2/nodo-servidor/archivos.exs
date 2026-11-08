@@ -4,7 +4,6 @@ defmodule Archivos do
   convertirlos en structs de elixir, separarlas lineas incorrectas etc
   """
 
-
   @doc """
   esta funcion, con la otra leer_movimiento, llaman a leer, con los parcers especificos de cada estructura
   """
