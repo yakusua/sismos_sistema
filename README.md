@@ -1,6 +1,6 @@
 # Parcial II — Programación 3
 
-Observatorio Sismológico de la Universidad del Quindío (Elixir, sin Mix).
+Observatorio Sismológico de la UQ.
 
 ## Punto 1 — Reporte local
 
@@ -12,12 +12,12 @@ elixir main.exs
 ```
 
 - **Archivos de entrada:** `punto-1/resources/ciudades.txt` y `punto-1/resources/movimientos.txt`
-- **Reporte generado:** `punto-1/resources/reporte_sismos.txt` (también se muestra en consola)
+- **Reporte generado:** `punto-1/resources/reporte_sismos.txt` también se muestra en consola, y es un reporte de las entradas resividas
 
 ## Punto 2 — Consulta entre nodos
 
 Se necesitan dos terminales. Primero se inicia el servidor y después el cliente.
-Ambos nodos deben usar la misma cookie (`parcial`), que se configura con la opción `--cookie`.
+Ambos nodos deben usar la misma cookie, osea cualquier texto, pero que sea igual, que se configura con la opción `--cookie` en la terminal.
 
 | Nodo     | Nombre                  | Cookie    |
 |----------|-------------------------|-----------|
@@ -27,7 +27,7 @@ Ambos nodos deben usar la misma cookie (`parcial`), que se configura con la opci
 **Terminal 1 — Servidor** (carpeta: `punto-2/nodo-servidor/`)
 
 ```
-elixir --name servidor@127.0.0.1 --cookie parcial servidor.exs
+elixir --name servidor@127.0.0.1 --cookie cookiDeEjemploMuySeguraObiaMente servidor.exs , aqui se definio el servidor con una cookie cookiDeEjemploMuySeguraObiaMente, se le puso el nombre de servidor@127.0.0.1, tambien se puede usar el clasico localhost
 ```
 
 - Archivos de entrada: `punto-2/nodo-servidor/resources/ciudades.txt` y `punto-2/nodo-servidor/resources/movimientos.txt`
@@ -35,7 +35,7 @@ elixir --name servidor@127.0.0.1 --cookie parcial servidor.exs
 **Terminal 2 — Cliente** (carpeta: `punto-2/nodo-cliente/`)
 
 ```
-elixir --name cliente@127.0.0.1 --cookie parcial cliente.exs
+elixir --name cliente@127.0.0.1 --cookie cookiDeEjemploMuySeguraObiaMente cliente.exs , aqui es lo mismo pero con cliente, importante usar la misma cookie
 ```
 
 ## Verificación del punto 2
