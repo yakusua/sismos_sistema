@@ -1,6 +1,12 @@
 defmodule Cliente do
+  @moduledoc """
+  este modulo, maneja la relacion con servidor, osea lanza solicitudes y resive respuestas
+  """
   @nodo_servidor :"servidor@127.0.0.1"
 
+  @doc """
+  inicia el proceso, conecta con el nodo del servidor, si se conecta, realiza solicitudes y resive respuestas
+  """
   def iniciar do
     Process.register(self(), :servicio_respuesta)
 
@@ -14,6 +20,9 @@ defmodule Cliente do
     end
   end
 
+  @doc """
+  realiza solicitudes de prueba, al nodo servicio.
+  """
   defp enviar_solicitudes do
     destino_respuesta = {:servicio_respuesta, node()}
 
@@ -29,6 +38,9 @@ defmodule Cliente do
     end)
   end
 
+  @doc """
+  esta funcion, se encarga de imprimir todas las respuestas, hasta que servicio, le devuelva la solicitud para terminar.
+  """
   defp recibir_respuestas do
     receive do
       :fin ->
